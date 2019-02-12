@@ -1,7 +1,6 @@
 # Search Plugin for Gatsby
 
-Gatsby plugin for full text search implementation based on [FlexSearch.js](https://github.com/nextapps-de/flexsearch) client-side index, heavily inspired in the [gatsby-plugin-lunr
-](https://github.com/humanseelabs/gatsby-plugin-lunr).
+Gatsby plugin for full text search implementation based on [FlexSearch.js](https://github.com/nextapps-de/flexsearch) client-side index, heavily inspired in the [gatsby-plugin-lunr](https://github.com/humanseelabs/gatsby-plugin-lunr).
 
 ## Getting Started
 
