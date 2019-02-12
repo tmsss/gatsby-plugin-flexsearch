@@ -65,6 +65,7 @@ The search data will be available on the client side via `window.__FLEXSEARCH__`
 
 ```javascript
 import React, { Component } from 'react'
+import { Link } from 'gatsby'
 
 // Search component
 class Search extends Component {
@@ -78,7 +79,9 @@ class Search extends Component {
       if (this.state.results.length > 0) {
         return this.state.results.map((page, i) => (
           <div className="item-search" key={i}>
-            <a href={page.url}>{page.title}<a/>
+            <Link to={page.url} className="link">
+              <h4>{page.title}</h4>
+            </Link>
           </div>
         ))
       } else if (this.state.query.length > 2) {
