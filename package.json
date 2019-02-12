@@ -1,0 +1,20 @@
+{
+  "name": "gatsby-plugin-flexsearch",
+  "version": "1.0.0",
+  "description": "Search for Gatsby.js using FlexSearch.js",
+  "main": "index.js",
+  "homepage": "https://github.com/tmsss/gatsby-plugin-flexsearch#readme",
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "search",
+    "flexsearch"
+  ],
+  "author": "Tiago Santos",
+  "license": "MIT",
+  "dependencies": {
+    "flexsearch": "^0.3.4",
+    "lodash": "^4.17.11",
+    "fs": "^0.0.1-security"
+  }
+}
