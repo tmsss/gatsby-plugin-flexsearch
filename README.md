@@ -1,4 +1,4 @@
-# Search Plugin for Gatsby
+# Flexsearch.js Plugin for Gatsby
 
 Gatsby plugin for full text search implementation based on [FlexSearch.js](https://github.com/nextapps-de/flexsearch) client-side index, heavily inspired in the [gatsby-plugin-lunr](https://github.com/humanseelabs/gatsby-plugin-lunr).
 
@@ -18,20 +18,23 @@ module.exports = {
         {
       resolve: 'gatsby-plugin-flexsearch',
       options: {
+        // L
         languages: ['en'],
-        type: 'MarkdownRemark',
+        type: 'MarkdownRemark', // Filter the node types you want to index
+        // Fields to index.
         fields: [
           {
             name: 'title',
-            indexed: true,
+            indexed: true, // If indexed === true, the field will be indexed.
             resolver: 'frontmatter.title',
+            // Attributes for indexing logic. Check https://github.com/nextapps-de/flexsearch#presets for details.
             attributes: {
               encode: 'balance',
               tokenize: 'strict',
               threshold: 6,
               depth: 3,
             },
-            store: true,
+            store: true, // In case you want to make the field available in the search results.
           },
           {
             name: 'description',
@@ -56,12 +59,12 @@ module.exports = {
     },
 ```
 
-## Implementing Search in Your Web UI
+## Implementing Search in Your UI
 
 The search data will be available on the client side via `window.__FLEXSEARCH__` that is an object with the following fields:
 
 - `index` - a flexsearch index instance
-- `store` - object where the key is a gatsby node ID and value is a collection of field values.
+- `store` - object that stores the indexed gatsby nodes where the id of each node corresponds to the id the filter, according with flexsearch.js best practices (https://github.com/nextapps-de/flexsearch#best-practices)).
 
 ```javascript
 import React, { Component } from 'react'
@@ -112,18 +115,22 @@ class Search extends Component {
   }
 
   getSearchResults(query) {
+    // adicionar variável para língua
     var index = window.__FLEXSEARCH__.en.index
     var store = window.__FLEXSEARCH__.en.store
     if (!query || !index) {
       return []
     } else {
       var results = []
+      // search the indexed fields
       Object.keys(index).forEach(idx => {
-        results.push(...index[idx].values.search(query))
+        results.push(...index[idx].values.search(query)) // more search options at https://github.com/nextapps-de/flexsearch#index.search
       })
 
+      // find the unique ids of the nodes
       results = Array.from(new Set(results))
 
+      // return the corresponding nodes in the store
       var nodes = store
         .filter(node => (results.includes(node.id) ? node : null))
         .map(node => node.node)
