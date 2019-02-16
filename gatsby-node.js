@@ -13,22 +13,18 @@ exports.onPostBootstrap = function(_ref, options) {
   var _options$fields = options.fields,
     fields = _options$fields === undefined ? [] : _options$fields
 
-  var _options$filename = options.filename,
-    filename =
-      _options$filename === undefined
-        ? 'flexsearch_index.json'
-        : _options$filename
-
   var store = []
   var indexStore = []
   var fullIndex = {}
 
   languages.forEach(lng => {
+    // collect fields to store
     var fieldsToStore = fields
       .filter(field => (field.store ? field.resolver : null))
       .map(field => ({ name: field.name, resolver: field.resolver }))
     var nid = []
 
+    // add each field to index
     fields.forEach(index_ => {
       var index = {}
       index.name = index_.name
@@ -37,7 +33,7 @@ exports.onPostBootstrap = function(_ref, options) {
         var attrs = index_.attributes
         index.attrs = attrs
 
-        if (attrs.stemmer !== undefined) {
+        if (attrs.stemmer !== undefined || attrs.filter !== undefined) {
           try {
             require('./lang/' + lng)
           } catch (e) {
@@ -83,7 +79,5 @@ exports.onPostBootstrap = function(_ref, options) {
     }
   })
 
-  fs.writeFileSync('public/' + filename, JSON.stringify(fullIndex))
+  fs.writeFileSync('public/flexsearch_index.json', JSON.stringify(fullIndex))
 }
-
-// module.exports = FlexSearch
