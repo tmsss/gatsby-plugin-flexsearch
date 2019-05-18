@@ -1,11 +1,11 @@
 // set flexsearch object as a global variable to make it available to language files
-global.FlexSearch = require('flexsearch')
+global.FlexSearch = require("flexsearch")
 
 exports.onClientEntry = function(args, _ref) {
   var languages = _ref.languages
 
   // load json data into window variable
-  fetch(__PATH_PREFIX__ + '/flexsearch_index.json')
+  fetch(__PATH_PREFIX__ + "/flexsearch_index.json")
     .then(function(response) {
       return response.json()
     })
@@ -20,7 +20,7 @@ exports.onClientEntry = function(args, _ref) {
             index_.attrs.filter !== undefined
           ) {
             try {
-              require('./lang/' + lng)
+              require("./lang/" + lng)
             } catch (e) {
               console.log(e)
             }
@@ -32,9 +32,9 @@ exports.onClientEntry = function(args, _ref) {
         })
       })
       // load index into window variable
-      window.__FLEXSEARCH__ = index
+      window.__FLEXSEARCH__ = index;
     })
     .catch(function(e) {
-      return console.log('Failed fetch search index')
+      return console.log('Failed fetch search index');
     })
 }

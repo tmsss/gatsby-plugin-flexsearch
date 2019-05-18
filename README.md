@@ -6,9 +6,7 @@ Gatsby plugin for full text search implementation based on [FlexSearch.js](https
 
 Install `gatsby-plugin-flexsearch`
 
-```
-    npm install --save gatsby-plugin-flexsearch
-```
+`npm install --save gatsby-plugin-flexsearch`
 
 Add `gatsby-plugin-flexsearch` configuration to the `gatsby-config.js` as following:
 

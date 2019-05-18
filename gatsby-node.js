@@ -1,6 +1,7 @@
 const _ = require('lodash')
 var fs = require('fs')
-global.FlexSearch = require('flexsearch')
+// set flexsearch object as a global variable to make it available to language files
+global.FlexSearch = require('flexsearch') 
 
 exports.onPostBootstrap = function(_ref, options) {
   var getNodes = _ref.getNodes
@@ -37,7 +38,7 @@ exports.onPostBootstrap = function(_ref, options) {
           try {
             require('./lang/' + lng)
           } catch (e) {
-            console.log('Error on loading language file')
+            console.log("Error on loading language file")
             console.log(e)
           }
         }
@@ -79,5 +80,5 @@ exports.onPostBootstrap = function(_ref, options) {
     }
   })
 
-  fs.writeFileSync('public/flexsearch_index.json', JSON.stringify(fullIndex))
+  fs.writeFileSync("public/flexsearch_index.json", JSON.stringify(fullIndex))
 }
