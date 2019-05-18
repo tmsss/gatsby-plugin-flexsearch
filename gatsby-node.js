@@ -9,14 +9,14 @@ exports.onPostBootstrap = function(_ref, options) {
   var type = options.type
 
   var _options$langua = options.languages,
-    languages = _options$langua === undefined ? ['en'] : _options$langua
+    languages = _options$langua === undefined ? ["en"] : _options$langua
 
   var _options$fields = options.fields,
     fields = _options$fields === undefined ? [] : _options$fields
 
-  var store = []
-  var indexStore = []
-  var fullIndex = {}
+  var store = [];
+  var indexStore = [];
+  var fullIndex = {};
 
   languages.forEach(lng => {
     // collect fields to store
@@ -36,7 +36,8 @@ exports.onPostBootstrap = function(_ref, options) {
 
         if (attrs.stemmer !== undefined || attrs.filter !== undefined) {
           try {
-            require("./lang/" + lng)
+            var _module = "./lang/" + lng;
+            require(_module);
           } catch (e) {
             console.error("Error on loading language file")
             console.error(e)

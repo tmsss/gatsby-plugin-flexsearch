@@ -20,21 +20,22 @@ exports.onClientEntry = function(args, _ref) {
             index_.attrs.filter !== undefined
           ) {
             try {
-              require("./lang/" + lng)
+              var _module = "./lang/" + lng;
+              require(_module);
             } catch (e) {
-              console.log(e)
+              console.error(e);
             }
           }
           // rebuild the index
-          indexObj = new FlexSearch(index_.attrs)
-          indexObj.import(index_.values)
-          index_.values = indexObj
+          var indexObj = new FlexSearch(index_.attrs);
+          indexObj.import(index_.values);
+          index_.values = indexObj;
         })
       })
       // load index into window variable
       window.__FLEXSEARCH__ = index;
     })
     .catch(function(e) {
-      return console.error("Failed fetch search index");
+      console.error("Failed fetch search index");
     })
 }
