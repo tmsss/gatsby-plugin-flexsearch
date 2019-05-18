@@ -61,8 +61,8 @@ module.exports = {
 
 The search data will be available on the client side via `window.__FLEXSEARCH__` that is an object with the following fields:
 
-- `index` - a flexsearch index instance
-- `store` - object that stores the indexed gatsby nodes where the id of each node corresponds to the id the filter, according with flexsearch.js best practices (https://github.com/nextapps-de/flexsearch#best-practices)).
+-   `index` - a flexsearch index instance
+-   `store` - object that stores the indexed gatsby nodes where the id of each node corresponds to the id the filter, according with flexsearch.js best practices (<https://github.com/nextapps-de/flexsearch#best-practices>)).
 
 ```javascript
 import React, { Component } from 'react'

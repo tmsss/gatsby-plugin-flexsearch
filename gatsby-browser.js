@@ -1,5 +1,5 @@
 // set flexsearch object as a global variable to make it available to language files
-global.FlexSearch = require("flexsearch")
+global.FlexSearch = require("flexsearch");
 
 exports.onClientEntry = function(args, _ref) {
   var languages = _ref.languages
@@ -35,6 +35,6 @@ exports.onClientEntry = function(args, _ref) {
       window.__FLEXSEARCH__ = index;
     })
     .catch(function(e) {
-      return console.log('Failed fetch search index');
+      return console.error("Failed fetch search index");
     })
 }

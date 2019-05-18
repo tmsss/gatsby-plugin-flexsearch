@@ -1,7 +1,7 @@
-const _ = require('lodash')
-var fs = require('fs')
+const _ = require("lodash");
+var fs = require("fs");
 // set flexsearch object as a global variable to make it available to language files
-global.FlexSearch = require('flexsearch') 
+global.FlexSearch = require("flexsearch");
 
 exports.onPostBootstrap = function(_ref, options) {
   var getNodes = _ref.getNodes
@@ -22,7 +22,7 @@ exports.onPostBootstrap = function(_ref, options) {
     // collect fields to store
     var fieldsToStore = fields
       .filter(field => (field.store ? field.resolver : null))
-      .map(field => ({ name: field.name, resolver: field.resolver }))
+      .map(field => ({ name: field.name, resolver: field.resolver }));
     var nid = []
 
     // add each field to index
@@ -36,10 +36,10 @@ exports.onPostBootstrap = function(_ref, options) {
 
         if (attrs.stemmer !== undefined || attrs.filter !== undefined) {
           try {
-            require('./lang/' + lng)
+            require("./lang/" + lng)
           } catch (e) {
-            console.log("Error on loading language file")
-            console.log(e)
+            console.error("Error on loading language file")
+            console.error(e)
           }
         }
 
