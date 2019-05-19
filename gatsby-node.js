@@ -1,7 +1,7 @@
-const _ = require("lodash");
-var fs = require("fs");
+const _ = require('lodash')
+var fs = require('fs')
 // set flexsearch object as a global variable to make it available to language files
-global.FlexSearch = require("flexsearch");
+global.FlexSearch = require('flexsearch')
 
 exports.onPostBootstrap = function(_ref, options) {
   var getNodes = _ref.getNodes
@@ -9,20 +9,20 @@ exports.onPostBootstrap = function(_ref, options) {
   var type = options.type
 
   var _options$langua = options.languages,
-    languages = _options$langua === undefined ? ["en"] : _options$langua
+    languages = _options$langua === undefined ? ['en'] : _options$langua
 
   var _options$fields = options.fields,
     fields = _options$fields === undefined ? [] : _options$fields
 
-  var store = [];
-  var indexStore = [];
-  var fullIndex = {};
+  var store = []
+  var indexStore = []
+  var fullIndex = {}
 
   languages.forEach(lng => {
     // collect fields to store
     var fieldsToStore = fields
       .filter(field => (field.store ? field.resolver : null))
-      .map(field => ({ name: field.name, resolver: field.resolver }));
+      .map(field => ({ name: field.name, resolver: field.resolver }))
     var nid = []
 
     // add each field to index
@@ -34,13 +34,23 @@ exports.onPostBootstrap = function(_ref, options) {
         var attrs = index_.attributes
         index.attrs = attrs
 
-        if (attrs.stemmer !== undefined || attrs.filter !== undefined) {
+        // load language files if needed by stemmer or filter
+        if (
+          index_.attrs.stemmer !== undefined ||
+          index_.attrs.filter !== undefined
+        ) {
           try {
-            var _module = "./lang/" + lng;
-            require(_module);
+            if (lng === 'en') {
+              require('./lang/en')
+            } else if (lng === 'de') {
+              require('./lang/en')
+            } else {
+              console.error(
+                'Language not supported by pre-defined stemmer or filter'
+              )
+            }
           } catch (e) {
-            console.error("Error on loading language file")
-            console.error(e)
+            console.error(e);
           }
         }
 
@@ -81,5 +91,5 @@ exports.onPostBootstrap = function(_ref, options) {
     }
   })
 
-  fs.writeFileSync("public/flexsearch_index.json", JSON.stringify(fullIndex))
+  fs.writeFileSync('public/flexsearch_index.json', JSON.stringify(fullIndex))
 }
