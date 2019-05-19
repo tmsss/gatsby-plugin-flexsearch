@@ -1,37 +1,37 @@
 const _ = require('lodash')
-var fs = require('fs')
+const fs = require('fs')
 // set flexsearch object as a global variable to make it available to language files
 global.FlexSearch = require('flexsearch')
 
 exports.onPostBootstrap = function(_ref, options) {
-  var getNodes = _ref.getNodes
+  const { getNodes } = _ref
 
-  var type = options.type
+  const { type } = options
 
-  var _options$langua = options.languages,
-    languages = _options$langua === undefined ? ['en'] : _options$langua
+  const _options$langua = options.languages
+  const languages = _options$langua === undefined ? ['en'] : _options$langua
 
-  var _options$fields = options.fields,
-    fields = _options$fields === undefined ? [] : _options$fields
+  const _options$fields = options.fields
+  const fields = _options$fields === undefined ? [] : _options$fields
 
-  var store = []
-  var indexStore = []
-  var fullIndex = {}
+  const store = []
+  const indexStore = []
+  const fullIndex = {}
 
   languages.forEach(lng => {
     // collect fields to store
-    var fieldsToStore = fields
+    const fieldsToStore = fields
       .filter(field => (field.store ? field.resolver : null))
       .map(field => ({ name: field.name, resolver: field.resolver }))
-    var nid = []
+    const nid = []
 
     // add each field to index
     fields.forEach(index_ => {
-      var index = {}
+      const index = {}
       index.name = index_.name
 
       if (index_.indexed) {
-        var attrs = index_.attributes
+        const attrs = index_.attributes
         index.attrs = attrs
 
         // load language files if needed by stemmer or filter
@@ -50,7 +50,7 @@ exports.onPostBootstrap = function(_ref, options) {
               )
             }
           } catch (e) {
-            console.error(e);
+            console.error(e)
           }
         }
 
@@ -64,17 +64,17 @@ exports.onPostBootstrap = function(_ref, options) {
           }
         })
         .forEach((n, i) => {
-          var id = i
+          const id = i
           if (index_.indexed) {
-            var content = _.get(n, index_.resolver)
+            const content = _.get(n, index_.resolver)
             index.values.add(id, content)
           }
-          var nodeContent = {}
+          const nodeContent = {}
           fieldsToStore.forEach(field => {
             nodeContent[field.name] = _.get(n, field.resolver)
           })
           if (!nid.includes(id)) {
-            store.push({ id: id, node: nodeContent })
+            store.push({ id, node: nodeContent })
             nid.push(id)
           }
         })
@@ -87,7 +87,7 @@ exports.onPostBootstrap = function(_ref, options) {
 
     fullIndex[lng] = {
       index: indexStore,
-      store: store,
+      store,
     }
   })
 
