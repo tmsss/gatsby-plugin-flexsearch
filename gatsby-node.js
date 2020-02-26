@@ -3,7 +3,7 @@ const fs = require('fs')
 // set flexsearch object as a global variable to make it available to language files
 global.FlexSearch = require('flexsearch')
 
-exports.onPostBootstrap = function(_ref, options) {
+exports.onPostBootstrap = function (_ref, options) {
   const { getNodes } = _ref
 
   const { type } = options
@@ -43,7 +43,7 @@ exports.onPostBootstrap = function(_ref, options) {
             if (lng === 'en') {
               require('./lang/en')
             } else if (lng === 'de') {
-              require('./lang/en')
+              require('./lang/de')
             } else {
               console.error(
                 'Language not supported by pre-defined stemmer or filter'
